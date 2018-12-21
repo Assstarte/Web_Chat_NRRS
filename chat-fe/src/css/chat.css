@@ -1,0 +1,51 @@
+#chat {
+  color: #fff;
+  padding-left: 100px;
+  background-color: #000;
+
+  font-size: 36px;
+}
+
+body {
+  background-color: #000;
+}
+
+.timeStamp {
+  color: rgb(228, 21, 100) !important;
+}
+
+.author {
+  color: #429ef4;
+}
+
+.inputs {
+  text-align: center;
+}
+
+button {
+  width: 300px;
+  height: 80px;
+  color: #fff;
+}
+
+input {
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: inline-block;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid #757575;
+}
+
+#username {
+  margin-right: 40px;
+}
+
+#message {
+  width: 400px;
+  height: 100px;
+}
+
+input:focus {
+  outline: none;
+}
