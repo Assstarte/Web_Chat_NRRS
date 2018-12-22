@@ -1,3 +1,7 @@
+//==================
+//Crucial Imports
+//==================
+
 const express = require("express");
 
 const app = express();
@@ -41,6 +45,12 @@ Message.belongsTo(Chat_rooms);
 
 sequelize.sync();
 
+//===========================
+//Controllers (REST Endpoints)
+//===========================
+
+//=========CREATE NEW CHAT ROOM=========
+
 app.post("/message/room/:room_id?", async (req, res) => {
   console.log("Request Received");
   let { room_id } = req.params;
@@ -63,6 +73,11 @@ app.post("/message/room/:room_id?", async (req, res) => {
   }
 });
 
+//======================================
+
+//===========POST MESSAGE===============
+
+//(Default Chat Room since one is not specified)
 app.post("/message", async (req, res) => {
   console.log("Request Received");
 
@@ -74,6 +89,10 @@ app.post("/message", async (req, res) => {
   res.status(201);
   res.end(JSON.stringify(msg));
 });
+
+//======================================
+
+//==============GET ALL MESSAGES (FROM ALL CHAT ROOMS)============
 
 app.get("/message", async (req, res) => {
   //let { id } = req.params;
@@ -87,6 +106,10 @@ app.get("/message", async (req, res) => {
   res.end(JSON.stringify(msgs));
 });
 
+//======================================
+
+//=============GET MESSAGES FROM SPECIFIED CHAT ROOM============
+
 app.get("/message/:chatRoomId?", async (req, res) => {
   let room = await Chat_rooms.findById(req.params.chatRoomId);
   let messages = await room.getMessages();
@@ -94,12 +117,20 @@ app.get("/message/:chatRoomId?", async (req, res) => {
   res.end(JSON.stringify(messages));
 });
 
+//======================================
+
+//=========GET ALL CHAT ROOMS===========
+
 app.get("/rooms", async (req, res) => {
   console.log("Rooms request received");
   let rooms = await Chat_rooms.findAll();
   res.end(JSON.stringify(rooms));
   res.status(200);
 });
+
+//======================================
+
+//=========CREATE NEW CHAT ROOM=========
 
 app.post("/rooms", async (req, res) => {
   let room_name = req.body.name;
@@ -117,6 +148,8 @@ app.post("/rooms", async (req, res) => {
     res.end(JSON.stringify(cr));
   }
 });
+
+//======================================
 
 app.listen("3030", () => {
   console.log("Listening...");
