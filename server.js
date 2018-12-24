@@ -222,15 +222,21 @@ app.post("/login", async (req, res) => {
     delete checkQuery.password;
     console.log(JSON.stringify(checkQuery));
     req.session.auth = checkQuery;
+    req.session.auth.loggedIn = true;
 
     res.write(JSON.stringify(req.session.auth));
-    res.end("Logged in");
+    res.end();
 
     console.log(req.session);
     res.status(200);
   } else {
     res.status(401);
-    res.end("Invalid credentials");
+    let deniedResponse = {
+      loggedIn: false
+    };
+
+    res.write(JSON.stringify(deniedResponse));
+    res.end();
   }
 });
 
