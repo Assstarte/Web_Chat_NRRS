@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import style from "../css/chat.css";
+import "../css/chat.css";
 
 class ChatMessage extends Component {
   state = {

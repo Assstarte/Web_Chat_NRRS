@@ -23,9 +23,9 @@ class Chat extends Component {
   //hooks
 
   componentWillMount() {
-    this.getMessagesFromRoom(3);
+    this.getMessagesFromRoom(4);
     console.log("Mounting");
-    this.loopedCheck(3);
+    this.loopedCheck(4);
   }
 
   loopedCheck(roomId) {

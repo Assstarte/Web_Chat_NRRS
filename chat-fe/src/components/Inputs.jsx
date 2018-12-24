@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import style from "../css/chat.css";
-import buttonStyle from "../css/buttons.css";
+import "../css/chat.css";
+import "../css/buttons.css";
 class Inputs extends Component {
   constructor() {
     super();
@@ -30,7 +30,7 @@ class Inputs extends Component {
         />
         <button
           className="raise"
-          onClick={e => this.sendMessageToChatRoom(e, 3)} //=======CHANGE AFTER TESTING!!1
+          onClick={e => this.sendMessageToChatRoom(e, 4)} //=======CHANGE AFTER TESTING!!1
           value="Send"
         >
           Send >
@@ -71,7 +71,8 @@ class Inputs extends Component {
         //time: `${new Date().getHours()}:${new Date().getMinutes()}`,
         name: this.inputNameRef.current.value,
         text: this.inputTextRef.current.value,
-        chatRoomId: chatRoom
+        chatRoomId: chatRoom,
+        userId: 1 //Replace to REDUX Session once implemented
         //name: `Test Name`,
         //text: `Txt`
       })
