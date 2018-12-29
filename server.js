@@ -1,10 +1,10 @@
 //==================
 //Crucial Imports
 //==================
-
+require("dotenv").config();
 const express = require("express");
-
 const app = express();
+
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
@@ -27,17 +27,22 @@ app.use(cors());
 //==================
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize("chat_v2", "CVRDINVL", "Inconcurent7&", {
-  host: "localhost",
-  dialect: "mysql",
+const sequelize = new Sequelize(
+  "chat_v2",
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: process.env.DB_HOST,
+    dialect: "mysql",
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
-});
+);
 
 const Message = sequelize.define("message", {
   nick: Sequelize.STRING,
@@ -222,15 +227,21 @@ app.post("/login", async (req, res) => {
     delete checkQuery.password;
     console.log(JSON.stringify(checkQuery));
     req.session.auth = checkQuery;
+    req.session.auth.loggedIn = true;
 
     res.write(JSON.stringify(req.session.auth));
-    res.end("Logged in");
+    res.end();
 
     console.log(req.session);
     res.status(200);
   } else {
     res.status(401);
-    res.end("Invalid credentials");
+    let deniedResponse = {
+      loggedIn: false
+    };
+
+    res.write(JSON.stringify(deniedResponse));
+    res.end();
   }
 });
 
