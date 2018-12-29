@@ -40,7 +40,7 @@ class Inputs extends Component {
   }
 
   sendMessage(e) {
-    fetch("http://localhost:3030/message", {
+    fetch("/message", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -61,7 +61,7 @@ class Inputs extends Component {
   }
 
   sendMessageToChatRoom(e, chatRoom) {
-    fetch(`http://localhost:3030/message/room/${chatRoom}`, {
+    fetch(`/message/room/${chatRoom}`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"

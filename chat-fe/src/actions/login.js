@@ -1,7 +1,7 @@
 import { LOGIN, AUTH, IF_AUTH, ERROR_OCCURRED } from "./types";
 
 export const exec_login = (login, pass) => dispatch => {
-  fetch("http://localhost:3030/login", {
+  fetch("/login", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
