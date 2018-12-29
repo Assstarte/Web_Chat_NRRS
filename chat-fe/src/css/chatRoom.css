@@ -1,0 +1,25 @@
+.chat-room {
+  border: 3px solid red;
+  display: flex;
+  align-content: center;
+  background-color: #426ef4;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 50px;
+}
+
+.room-name {
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+svg {
+  height: 20px;
+  width: 30px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+}

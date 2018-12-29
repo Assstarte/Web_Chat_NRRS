@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChatMessage from "./ChatMessage";
+import Inputs from "./Inputs";
 
 //RDX
 
@@ -22,8 +23,9 @@ class Chat extends Component {
     return (
       <div id="chat">
         {this.props.messages.map(msg => (
-          <ChatMessage data={msg} />
+          <ChatMessage key={msg.id} data={msg} />
         ))}
+        <Inputs />
       </div>
     );
   }
@@ -66,6 +68,9 @@ class Chat extends Component {
 
   componentWillMount() {
     this.props.exec_fetch_rooms();
+
+    //=======TEST SECTION=======
+    this.props.exec_fetch_messages(4);
   }
 }
 
@@ -74,7 +79,8 @@ const mapStateToProps = state => ({
   messages: state.fetch.messages,
   errorOccurred: state.fetch.errorOccurred,
   roomScreen: state.fetch.roomScreen,
-  msgScreen: state.fetch.msgScreen
+  msgScreen: state.fetch.msgScreen,
+  currentRoom: state.chat.currentRoom
 });
 
 export default connect(

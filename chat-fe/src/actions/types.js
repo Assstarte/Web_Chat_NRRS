@@ -7,3 +7,5 @@ export const SEND_MESSAGE = "SEND_MESSAGE";
 export const CREATE_CHATROOM = "CREATE_CHATROOM";
 export const IF_AUTH = "IF AUTH";
 export const ERROR_OCCURRED = "ERROR_OCCURRED";
+
+export const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
