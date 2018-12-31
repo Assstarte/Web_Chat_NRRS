@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../css/chat.css";
 import "../css/buttons.css";
+import { connect } from "react-redux";
+
 class Inputs extends Component {
   constructor() {
     super();
@@ -11,26 +13,19 @@ class Inputs extends Component {
 
   state = {};
   render() {
+    console.log("Curr Room - " + this.props.currentRoom);
     return (
       <div className="inputs">
-        <input
-          type="text"
-          name="name"
-          className="raise"
-          ref={this.inputNameRef}
-          id="username"
-          placeholder="Enter username..."
-        />
-        <input
-          type="text"
+        <textarea
+          style={{ height: 300 + "px", width: 600 + "px" }}
           name="text"
           ref={this.inputTextRef}
           id="message"
-          placeholder="Enter message..."
+          defaultValue="Enter message..."
         />
         <button
           className="raise"
-          onClick={e => this.sendMessageToChatRoom(e, 4)} //=======CHANGE AFTER TESTING!!1
+          onClick={e => this.sendMessageToChatRoom(e, this.props.currentRoom)} //=======CHANGE AFTER TESTING!!1
           value="Send"
         >
           Send >
@@ -48,7 +43,6 @@ class Inputs extends Component {
       method: "POST",
       body: JSON.stringify({
         //time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-        name: this.inputNameRef.current.value,
         text: this.inputTextRef.current.value
         //name: `Test Name`,
         //text: `Txt`
@@ -69,10 +63,9 @@ class Inputs extends Component {
       method: "POST",
       body: JSON.stringify({
         //time: `${new Date().getHours()}:${new Date().getMinutes()}`,
-        name: this.inputNameRef.current.value,
         text: this.inputTextRef.current.value,
         chatRoomId: chatRoom,
-        userId: 1 //Replace to REDUX Session once implemented
+        userId: this.props.userId //Replace to REDUX Session once implemented -- DONE
         //name: `Test Name`,
         //text: `Txt`
       })
@@ -84,4 +77,16 @@ class Inputs extends Component {
   }
 }
 
-export default Inputs;
+const mapStateToProps = state => ({
+  rooms: state.fetch.rooms,
+  errorOccurred: state.fetch.errorOccurred,
+  roomScreen: state.fetch.roomScreen,
+  msgScreen: state.fetch.msgScreen,
+  currentRoom: state.chat.currentRoom,
+  userId: state.login.user_id
+});
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Inputs);

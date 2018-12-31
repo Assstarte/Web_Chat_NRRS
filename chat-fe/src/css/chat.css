@@ -3,11 +3,13 @@
   padding-left: 100px;
   background-color: #000;
 
-  font-size: 36px;
+  font-size: 22px;
 }
 
 body {
   background-color: #000;
+  font-family: Josefin serif;
+  font-weight: 300;
 }
 
 .timeStamp {
@@ -48,4 +50,8 @@ input {
 
 input:focus {
   outline: none;
+}
+
+body {
+  overflow-x: hidden;
 }

@@ -17,6 +17,7 @@ import { Router, Route, Link, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 
 import store from "./store";
+import Login from "./components/Login";
 
 class App extends Component {
   render() {
@@ -26,14 +27,11 @@ class App extends Component {
           <Router history={createHistory()}>
             <div>
               <Switch>
-                <Route
-                  path="/"
-                  component={store.getState().fetch.roomScreen ? Chat : Home}
-                  exact
-                />
+                <Route path="/" component={Home} exact />
                 <Route path="/home" component={Home} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/rooms" component={RoomScreen} />
+                <Route path="/login" component={Login} />
               </Switch>
             </div>
           </Router>

@@ -9,6 +9,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 
+//======GLOBAL STATE======//
+
+let obtained = null;
+//!!!!TODO: REPLACE WITH ALTERNATE LATER
+//========================//
 app.set("trust proxy", 1); // trust first proxy
 
 app.use(
@@ -83,8 +88,9 @@ app.post("/message/room/:room_id?", async (req, res) => {
   console.log("Request Received");
   let { room_id } = req.params;
   if (!room_id) {
+    obtainUsernameById(req.body.userId);
     let msg = await Message.create({
-      nick: req.body.name,
+      nick: obtained,
       message: req.body.text,
       chatRoomId: req.body.chatRoomId,
       userId: req.body.userId,
@@ -246,9 +252,37 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/whoami", async (req, res) => {
-  res.end(JSON.stringify(req.session.auth));
+  res.end(
+    req.session.auth
+      ? JSON.stringify(req.session.auth)
+      : JSON.stringify({ session: "DENIED" })
+  );
   res.status(200);
 });
+
+app.get("/test123", (req, res) => {
+  obtainUsernameById(1);
+
+  console.log("RESULT:" + obtained);
+  res.write(obtained);
+  res.end();
+});
+
+//=======CUSTOM=======
+async function obtainUsernameById(id) {
+  let query = await User.findOne({
+    where: {
+      id: id
+    }
+  });
+
+  query = JSON.parse(JSON.stringify(query));
+
+  console.log(query);
+
+  obtained = query ? query.login : false;
+}
+//====================
 
 app.listen("3030", () => {
   console.log("Listening...");

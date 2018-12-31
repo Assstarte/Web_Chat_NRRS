@@ -1,4 +1,4 @@
-import { LOGIN, AUTH, IF_AUTH, ERROR_OCCURRED } from "../actions/types";
+import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED } from "../actions/types";
 
 const initialState = {
   loggedIn: false,
@@ -9,8 +9,8 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-      let server_response = JSON.parse(action.payload);
-
+      let server_response = action.payload;
+      console.log(server_response);
       //SUCCESS
       if (server_response.loggedIn === true) {
         return {
@@ -26,6 +26,25 @@ export default function(state = initialState, action) {
           ...state,
           loggedIn: false,
           errorOccurred: true,
+          user_id: null
+        };
+      }
+
+    case WHOAMI:
+      console.log(action.payload);
+      if (action.payload.session !== "DENIED") {
+        console.log("WORKING");
+        return {
+          ...state,
+          loggedIn: true,
+          errorOccurred: false,
+          user_id: action.payload.id
+        };
+      } else {
+        return {
+          ...state,
+          loggedIn: false,
+          errorOccurred: false,
           user_id: null
         };
       }
