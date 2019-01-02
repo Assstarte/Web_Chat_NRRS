@@ -17,6 +17,7 @@ import { Router, Route, Link, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 
 import store from "./store";
+import Login from "./components/Login";
 
 class App extends Component {
   render() {
@@ -28,12 +29,15 @@ class App extends Component {
               <Switch>
                 <Route
                   path="/"
-                  component={store.getState().fetch.roomScreen ? Chat : Home}
+                  component={
+                    store.getState().login.loggedIn ? RoomScreen : Home
+                  }
                   exact
                 />
                 <Route path="/home" component={Home} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/rooms" component={RoomScreen} />
+                <Route path="/login" component={Login} />
               </Switch>
             </div>
           </Router>
@@ -44,4 +48,7 @@ class App extends Component {
 }
 // For Debugging Redux Store
 store.subscribe(() => console.log(store.getState()));
+store.subscribe(() => {
+  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+});
 export default App;

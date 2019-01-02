@@ -84,7 +84,7 @@ app.post("/message/room/:room_id?", async (req, res) => {
   let { room_id } = req.params;
   if (!room_id) {
     let msg = await Message.create({
-      nick: req.body.name,
+      nick: req.body.user_name,
       message: req.body.text,
       chatRoomId: req.body.chatRoomId,
       userId: req.body.userId,
@@ -94,7 +94,7 @@ app.post("/message/room/:room_id?", async (req, res) => {
     res.end(JSON.stringify(msg));
   } else {
     let msg = await Message.create({
-      nick: req.body.name,
+      nick: req.body.user_name,
       message: req.body.text,
       chatRoomId: room_id,
       userId: req.body.userId,
@@ -114,7 +114,7 @@ app.post("/message", async (req, res) => {
   console.log("Request Received");
 
   let msg = await Message.create({
-    nick: req.body.name,
+    nick: req.body.user_name,
     message: req.body.text,
     chatRoomId: 1
   });
@@ -143,7 +143,9 @@ app.get("/message", async (req, res) => {
 //=============GET MESSAGES FROM SPECIFIED CHAT ROOM============
 
 app.get("/message/:chatRoomId?", async (req, res) => {
+  console.log(req.params.chatRoomId + "<- ROOMID");
   let room = await Chat_rooms.findById(req.params.chatRoomId);
+  console.log("CURRENT ROOM -> " + room);
   let messages = await room.getMessages();
   res.status(201);
   res.end(JSON.stringify(messages));
@@ -246,7 +248,11 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/whoami", async (req, res) => {
-  res.end(JSON.stringify(req.session.auth));
+  res.end(
+    req.session.auth
+      ? JSON.stringify(req.session.auth)
+      : JSON.stringify({ session: "DENIED" })
+  );
   res.status(200);
 });
 

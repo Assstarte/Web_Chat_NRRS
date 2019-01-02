@@ -11,13 +11,10 @@ import {
 } from "../actions/f_msgs_and_rooms";
 
 class Chat extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     messages: []
-  //   };
-  //   this.getMessages = this.getMessages.bind(this);
-  // }
+  constructor(props) {
+    super(props);
+    this.currentRoom = this.props.currentRoom;
+  }
 
   render() {
     return (
@@ -67,10 +64,14 @@ class Chat extends Component {
   // }
 
   componentWillMount() {
-    this.props.exec_fetch_rooms();
-
     //=======TEST SECTION=======
-    this.props.exec_fetch_messages(4);
+
+    //this.props.exec_fetch_messages(this.props.currentRoom);
+    this.loopedCheck(this.props.currentRoom);
+  }
+
+  loopedCheck(roomId) {
+    setInterval(this.props.exec_fetch_messages.bind(this, roomId), 1000);
   }
 }
 

@@ -15,6 +15,12 @@ class RoomScreen extends Component {
     this.props.exec_fetch_rooms();
   }
 
+  componentDidUpdate() {
+    this.props.currentRoom
+      ? this.props.history.push("/chat")
+      : console.log("Select Room");
+  }
+
   render() {
     return (
       <div className="container demo">
