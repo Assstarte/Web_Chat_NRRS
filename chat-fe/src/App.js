@@ -27,7 +27,13 @@ class App extends Component {
           <Router history={createHistory()}>
             <div>
               <Switch>
-                <Route path="/" component={Home} exact />
+                <Route
+                  path="/"
+                  component={
+                    store.getState().login.loggedIn ? RoomScreen : Home
+                  }
+                  exact
+                />
                 <Route path="/home" component={Home} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/rooms" component={RoomScreen} />
@@ -42,4 +48,7 @@ class App extends Component {
 }
 // For Debugging Redux Store
 store.subscribe(() => console.log(store.getState()));
+store.subscribe(() => {
+  localStorage.setItem("reduxState", JSON.stringify(store.getState()));
+});
 export default App;

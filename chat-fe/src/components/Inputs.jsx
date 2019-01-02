@@ -65,7 +65,8 @@ class Inputs extends Component {
         //time: `${new Date().getHours()}:${new Date().getMinutes()}`,
         text: this.inputTextRef.current.value,
         chatRoomId: chatRoom,
-        userId: this.props.userId //Replace to REDUX Session once implemented -- DONE
+        userId: this.props.userId, //Replace to REDUX Session once implemented -- DONE
+        user_name: this.props.user_name
         //name: `Test Name`,
         //text: `Txt`
       })
@@ -83,7 +84,8 @@ const mapStateToProps = state => ({
   roomScreen: state.fetch.roomScreen,
   msgScreen: state.fetch.msgScreen,
   currentRoom: state.chat.currentRoom,
-  userId: state.login.user_id
+  userId: state.login.user_id,
+  user_name: state.login.user_name
 });
 
 export default connect(

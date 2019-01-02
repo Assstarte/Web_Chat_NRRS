@@ -3,21 +3,22 @@ import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED } from "../actions/types";
 const initialState = {
   loggedIn: false,
   errorOccurred: false,
-  user_id: null
+  user_id: null,
+  user_name: null
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
       let server_response = action.payload;
-      console.log(server_response);
       //SUCCESS
       if (server_response.loggedIn === true) {
         return {
           ...state,
           loggedIn: true,
           errorOccurred: false,
-          user_id: server_response.id
+          user_id: server_response.id,
+          user_name: server_response.login
         };
       }
       //ERROR
@@ -38,7 +39,8 @@ export default function(state = initialState, action) {
           ...state,
           loggedIn: true,
           errorOccurred: false,
-          user_id: action.payload.id
+          user_id: action.payload.id,
+          user_name: action.payload.login
         };
       } else {
         return {

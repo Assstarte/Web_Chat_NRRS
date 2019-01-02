@@ -9,11 +9,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 
-//======GLOBAL STATE======//
-
-let obtained = null;
-//!!!!TODO: REPLACE WITH ALTERNATE LATER
-//========================//
 app.set("trust proxy", 1); // trust first proxy
 
 app.use(
@@ -88,9 +83,8 @@ app.post("/message/room/:room_id?", async (req, res) => {
   console.log("Request Received");
   let { room_id } = req.params;
   if (!room_id) {
-    obtainUsernameById(req.body.userId);
     let msg = await Message.create({
-      nick: obtained,
+      nick: req.body.user_name,
       message: req.body.text,
       chatRoomId: req.body.chatRoomId,
       userId: req.body.userId,
@@ -100,7 +94,7 @@ app.post("/message/room/:room_id?", async (req, res) => {
     res.end(JSON.stringify(msg));
   } else {
     let msg = await Message.create({
-      nick: req.body.name,
+      nick: req.body.user_name,
       message: req.body.text,
       chatRoomId: room_id,
       userId: req.body.userId,
@@ -120,7 +114,7 @@ app.post("/message", async (req, res) => {
   console.log("Request Received");
 
   let msg = await Message.create({
-    nick: req.body.name,
+    nick: req.body.user_name,
     message: req.body.text,
     chatRoomId: 1
   });
@@ -149,7 +143,9 @@ app.get("/message", async (req, res) => {
 //=============GET MESSAGES FROM SPECIFIED CHAT ROOM============
 
 app.get("/message/:chatRoomId?", async (req, res) => {
+  console.log(req.params.chatRoomId + "<- ROOMID");
   let room = await Chat_rooms.findById(req.params.chatRoomId);
+  console.log("CURRENT ROOM -> " + room);
   let messages = await room.getMessages();
   res.status(201);
   res.end(JSON.stringify(messages));
@@ -259,30 +255,6 @@ app.get("/whoami", async (req, res) => {
   );
   res.status(200);
 });
-
-app.get("/test123", (req, res) => {
-  obtainUsernameById(1);
-
-  console.log("RESULT:" + obtained);
-  res.write(obtained);
-  res.end();
-});
-
-//=======CUSTOM=======
-async function obtainUsernameById(id) {
-  let query = await User.findOne({
-    where: {
-      id: id
-    }
-  });
-
-  query = JSON.parse(JSON.stringify(query));
-
-  console.log(query);
-
-  obtained = query ? query.login : false;
-}
-//====================
 
 app.listen("3030", () => {
   console.log("Listening...");

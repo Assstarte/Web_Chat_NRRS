@@ -64,10 +64,14 @@ class Chat extends Component {
   // }
 
   componentWillMount() {
-    this.props.exec_fetch_rooms();
-
     //=======TEST SECTION=======
-    this.props.exec_fetch_messages(this.currentRoom);
+
+    //this.props.exec_fetch_messages(this.props.currentRoom);
+    this.loopedCheck(this.props.currentRoom);
+  }
+
+  loopedCheck(roomId) {
+    setInterval(this.props.exec_fetch_messages.bind(this, roomId), 1000);
   }
 }
 
