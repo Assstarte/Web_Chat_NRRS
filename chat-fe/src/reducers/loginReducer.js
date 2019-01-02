@@ -1,4 +1,4 @@
-import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED } from "../actions/types";
+import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED, SIGNUP } from "../actions/types";
 
 const initialState = {
   loggedIn: false,
@@ -30,6 +30,20 @@ export default function(state = initialState, action) {
           user_id: null
         };
       }
+
+    case SIGNUP:
+      if (action.payload.created) {
+        return {
+          ...state,
+          loggedIn: false,
+          errorOccurred: false
+        };
+      } else
+        return {
+          ...state,
+          loggedIn: false,
+          errorOccurred: true
+        };
 
     case WHOAMI:
       console.log(action.payload);

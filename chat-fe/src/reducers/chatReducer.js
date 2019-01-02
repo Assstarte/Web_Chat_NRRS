@@ -1,4 +1,4 @@
-import { SET_CURRENT_ROOM } from "../actions/types";
+import { SET_CURRENT_ROOM, FLUSH_CURRENT_ROOM } from "../actions/types";
 
 const initialState = {
   currentRoom: null,
@@ -13,6 +13,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentRoom: action.payload
+      };
+
+    case FLUSH_CURRENT_ROOM:
+      return {
+        ...state,
+        currentRoom: null
       };
 
     default:

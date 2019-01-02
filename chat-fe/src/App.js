@@ -18,6 +18,7 @@ import createHistory from "history/createBrowserHistory";
 
 import store from "./store";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 class App extends Component {
   render() {
@@ -38,6 +39,7 @@ class App extends Component {
                 <Route path="/chat" component={Chat} />
                 <Route path="/rooms" component={RoomScreen} />
                 <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
               </Switch>
             </div>
           </Router>

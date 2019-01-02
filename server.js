@@ -202,6 +202,7 @@ app.post("/signup", async (req, res) => {
 
   if (checkQuery) {
     res.status(400);
+    res.end(JSON.stringify({ created: false }));
 
     throw new Error("User already exists");
   } else {
@@ -209,8 +210,8 @@ app.post("/signup", async (req, res) => {
       login: req.body.login,
       password: req.body.password
     });
-
     res.status(201);
+    res.end(JSON.stringify({ created: true }));
   }
 });
 

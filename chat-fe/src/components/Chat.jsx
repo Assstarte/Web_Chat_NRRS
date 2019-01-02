@@ -9,6 +9,7 @@ import {
   exec_fetch_messages,
   exec_fetch_rooms
 } from "../actions/f_msgs_and_rooms";
+import FixedDashboard from "./FixedDashboard";
 
 class Chat extends Component {
   constructor(props) {
@@ -18,55 +19,20 @@ class Chat extends Component {
 
   render() {
     return (
-      <div id="chat">
-        {this.props.messages.map(msg => (
-          <ChatMessage key={msg.id} data={msg} />
-        ))}
-        <Inputs />
-      </div>
+      <React.Fragment>
+        <FixedDashboard user_name={this.props.user_name} />
+        <div id="chat">
+          {this.props.messages.map(msg => (
+            <ChatMessage key={msg.id} data={msg} />
+          ))}
+          <Inputs />
+        </div>
+      </React.Fragment>
     );
   }
 
-  //hooks
-
-  // componentWillMount() {
-  //   this.getMessagesFromRoom(4);
-  //   console.log("Mounting");
-  //   this.loopedCheck(4);
-  // }
-
-  // loopedCheck(roomId) {
-  //   setInterval(this.getMessagesFromRoom.bind(this, roomId), 1000);
-  // }
-
-  // async getMessages() {
-  //   console.log("getMessages() triggered");
-  //   await fetch("http://localhost:3030/message").then(r => {
-  //     //console.log(r);
-  //     r.text().then(r => {
-  //       this.setState({
-  //         messages: JSON.parse(r)
-  //       });
-  //     });
-  //   });
-  // }
-
-  // async getMessagesFromRoom(roomId) {
-  //   console.log("getMessages() triggered");
-  //   await fetch(`http://localhost:3030/message/${roomId}`).then(r => {
-  //     //console.log(r);
-  //     r.text().then(r => {
-  //       this.setState({
-  //         messages: JSON.parse(r)
-  //       });
-  //     });
-  //   });
-  // }
-
   componentWillMount() {
-    //=======TEST SECTION=======
-
-    //this.props.exec_fetch_messages(this.props.currentRoom);
+    if (!this.props.loggedIn) this.props.history.push("/login");
     this.loopedCheck(this.props.currentRoom);
   }
 
@@ -81,7 +47,9 @@ const mapStateToProps = state => ({
   errorOccurred: state.fetch.errorOccurred,
   roomScreen: state.fetch.roomScreen,
   msgScreen: state.fetch.msgScreen,
-  currentRoom: state.chat.currentRoom
+  currentRoom: state.chat.currentRoom,
+  user_name: state.login.user_name,
+  loggedIn: state.login.loggedIn
 });
 
 export default connect(

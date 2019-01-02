@@ -17,14 +17,13 @@ class Inputs extends Component {
     return (
       <div className="inputs">
         <textarea
-          style={{ height: 300 + "px", width: 600 + "px" }}
           name="text"
           ref={this.inputTextRef}
           id="message"
-          defaultValue="Enter message..."
+          placeholder="Enter message..."
         />
         <button
-          className="raise"
+          className="raise send-msg-btn"
           onClick={e => this.sendMessageToChatRoom(e, this.props.currentRoom)} //=======CHANGE AFTER TESTING!!1
           value="Send"
         >

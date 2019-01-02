@@ -21,11 +21,16 @@ class Home extends Component {
         <div style={{ textAlign: "center" }}>
           <button
             onClick={e => this.redirectToLogin(e)}
-            className="pulse btn-login"
+            className="pulse btn-login home-screen-btn"
           >
             Login
           </button>
-          <button className="raise btn-signup">Sign Up</button>
+          <button
+            onClick={e => this.redirectToSignup(e)}
+            className="raise btn-signup home-screen-btn"
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     );
@@ -44,6 +49,11 @@ class Home extends Component {
   redirectToLogin(e) {
     e.preventDefault();
     this.props.history.push("/login");
+  }
+
+  redirectToSignup(e) {
+    e.preventDefault();
+    this.props.history.push("/signup");
   }
 }
 

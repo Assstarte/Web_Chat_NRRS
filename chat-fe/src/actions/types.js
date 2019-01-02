@@ -7,5 +7,6 @@ export const SEND_MESSAGE = "SEND_MESSAGE";
 export const CREATE_CHATROOM = "CREATE_CHATROOM";
 export const WHOAMI = "WHOAMI";
 export const ERROR_OCCURRED = "ERROR_OCCURRED";
+export const FLUSH_CURRENT_ROOM = "FLUSH_CURRENT_ROOM";
 
 export const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";

@@ -1,14 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+@import url("https://fonts.googleapis.com/css?family=Iceberg");
 #chat {
   color: #fff;
   padding-left: 100px;
   background-color: #000;
-
+  font-family: "Iceberg", cursive;
   font-size: 22px;
 }
 
-body {
+textarea {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  width: 74%; /* -1% for borders */
+  height: 150px;
   background-color: #000;
-  font-family: Josefin serif;
+  color: #fff;
+  font-family: "Righteous", cursive;
+}
+
+.send-msg-btn {
+  position: absolute;
+  margin: 0 !important;
+  width: 25%;
+  height: 150px;
+  font-size: 26px;
+  z-index: 999;
+  right: 0;
+  font-family: "Righteous", cursive;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
   font-weight: 300;
 }
 
@@ -24,9 +49,10 @@ body {
   text-align: center;
 }
 
-button {
-  width: 300px !important;
-  height: 80px !important;
+.home-screen-btn,
+.home-screen-btn {
+  width: 300px;
+  height: 80px;
   color: #fff;
 }
 
@@ -43,15 +69,43 @@ input {
   margin-right: 40px;
 }
 
-#message {
-  width: 400px;
-  height: 100px;
-}
-
 input:focus {
   outline: none;
 }
 
 body {
   overflow-x: hidden;
+}
+
+/* FIXED HEADER (DASHBOARD) */
+
+#fixed-head {
+  display: block;
+  background: #000;
+  z-index: 999;
+  height: 60px;
+}
+
+#fixed-head h2 {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  line-height: 60px;
+  text-shadow: 0 1px 1px #ffeeb2;
+}
+
+#fixed-head .btn-login {
+  margin: 0;
+  position: absolute;
+  height: 60px;
+  top: 0;
+  right: 240px;
+}
+
+#fixed-head .btn-signup {
+  margin: 0;
+  position: absolute;
+  height: 60px;
+  top: 0;
+  right: 100px;
 }

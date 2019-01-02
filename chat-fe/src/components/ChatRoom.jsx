@@ -4,7 +4,7 @@ import "../css/chatRoom.css";
 const ChatRoom = ({ name, owner, enterRoom }) => (
   <div className="chat-room">
     <span className="room-name">{name}</span>
-    <button className="raise" onClick={enterRoom}>
+    <button className="raise enter-room" onClick={enterRoom}>
       <svg
         aria-hidden="true"
         data-prefix="fas"
