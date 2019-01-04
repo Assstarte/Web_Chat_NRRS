@@ -25,8 +25,8 @@ class Chat extends Component {
           {this.props.messages.map(msg => (
             <ChatMessage key={msg.id} data={msg} />
           ))}
-          <Inputs />
         </div>
+        <Inputs />
       </React.Fragment>
     );
   }
@@ -34,6 +34,25 @@ class Chat extends Component {
   componentWillMount() {
     if (!this.props.loggedIn) this.props.history.push("/login");
     this.loopedCheck(this.props.currentRoom);
+  }
+
+  componentDidMount() {
+    this.chatWindow = document.querySelector("#chat");
+    this.messageAmount = this.props.messages.length;
+    console.info("Did Mount" + this.messageAmount);
+    this.chatWindow.scrollTo(0, Number.MAX_SAFE_INTEGER);
+  }
+
+  componentDidUpdate() {
+    //Checking if any actual new messages were received during SQL queries ea. 1 sec. If yes ---> Scroll the chat window to bottom;
+    if (this.props.messages.length > this.messageAmount) {
+      this.messageAmount++;
+      this.chatWindow.scrollTo({
+        top: Number.MAX_SAFE_INTEGER,
+        left: 0,
+        options: `smooth`
+      });
+    }
   }
 
   loopedCheck(roomId) {

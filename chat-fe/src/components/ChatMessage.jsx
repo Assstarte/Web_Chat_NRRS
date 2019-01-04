@@ -21,6 +21,7 @@ class ChatMessage extends Component {
             {timeStamp}
           </span>
         </h4>
+        <hr />
       </div>
     );
   }

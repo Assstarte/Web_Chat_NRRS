@@ -6,12 +6,18 @@
   background-color: #000;
   font-family: "Iceberg", cursive;
   font-size: 22px;
+  overflow-y: scroll;
+  height: 50vh;
+  width: 90vw;
+}
+
+.chat-message {
 }
 
 textarea {
   display: inline-block;
-  position: absolute;
-  left: 0;
+  /* position: absolute;
+  left: 0; */
   width: 74%; /* -1% for borders */
   height: 150px;
   background-color: #000;
@@ -20,19 +26,22 @@ textarea {
 }
 
 .send-msg-btn {
-  position: absolute;
-  margin: 0 !important;
-  width: 25%;
-  height: 150px;
-  font-size: 26px;
+  /* position: absolute;
+  margin: 0 !important; */
+  width: 600px;
+  height: 70px;
+  font-size: 262x;
   z-index: 999;
-  right: 0;
+  /* right: 0; */
   font-family: "Righteous", cursive;
 }
 
+html,
 body {
   margin: 0;
   padding: 0;
+  height: 100vh;
+  width: 100vw;
   background-color: #000;
   font-weight: 300;
 }
@@ -47,6 +56,9 @@ body {
 
 .inputs {
   text-align: center;
+  position: relative;
+  bottom: 0;
+  left: 0;
 }
 
 .home-screen-btn,

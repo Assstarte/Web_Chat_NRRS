@@ -49,7 +49,7 @@ class App extends Component {
   }
 }
 // For Debugging Redux Store
-store.subscribe(() => console.log(store.getState()));
+// store.subscribe(() => console.log(store.getState()));
 store.subscribe(() => {
   localStorage.setItem("reduxState", JSON.stringify(store.getState()));
 });
