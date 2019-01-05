@@ -21,6 +21,10 @@ class RoomScreen extends Component {
     this.props.exec_fetch_rooms();
   }
 
+  componentDidMount() {
+    this.props.exec_flush_current_room();
+  }
+
   componentDidUpdate() {
     this.props.currentRoom
       ? this.props.history.push("/chat")

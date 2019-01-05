@@ -15,6 +15,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.currentRoom = this.props.currentRoom;
+    this.intervalID = null;
   }
 
   render() {
@@ -37,7 +38,7 @@ class Chat extends Component {
 
   componentWillMount() {
     if (!this.props.loggedIn) this.props.history.push("/login");
-    this.loopedCheck(this.props.currentRoom);
+    this.props.exec_fetch_messages(this.props.currentRoom);
   }
 
   componentDidMount() {
@@ -45,6 +46,8 @@ class Chat extends Component {
     this.messageAmount = this.props.messages.length;
     console.info("Did Mount" + this.messageAmount);
     this.chatWindow.scrollTo(0, Number.MAX_SAFE_INTEGER);
+    //comment next line to test w/o issue
+    this.intervalID = this.loopedCheck(this.props.currentRoom);
   }
 
   componentDidUpdate() {
@@ -60,10 +63,16 @@ class Chat extends Component {
   }
 
   loopedCheck(roomId) {
-    setInterval(this.props.exec_fetch_messages.bind(this, roomId), 1000);
+    let intervalID = setInterval(
+      this.props.exec_fetch_messages.bind(this, roomId),
+      1000
+    );
+    return intervalID;
   }
 
   redirectToRoomScreen() {
+    //Clearing old interval to avoid multiple sessions
+    clearInterval(this.intervalID);
     this.props.history.push("/rooms");
   }
 }
