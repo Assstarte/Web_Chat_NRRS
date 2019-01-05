@@ -1,7 +1,7 @@
 import { FETCH_MESSAGES, FETCH_CHATROOMS, ERROR_OCCURRED } from "./types";
 
 export const exec_fetch_rooms = () => dispatch => {
-  fetch("/rooms", {
+  fetch("/api/rooms", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -26,7 +26,7 @@ export const exec_fetch_rooms = () => dispatch => {
 };
 
 export const exec_fetch_messages = roomId => dispatch => {
-  fetch(`/message/${roomId}`, {
+  fetch(`/api/message/${roomId}`, {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"

@@ -70,7 +70,7 @@ class RoomScreen extends Component {
   }
 
   createNewRoom(roomName) {
-    fetch("/rooms", {
+    fetch("/api/rooms", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"

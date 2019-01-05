@@ -1,7 +1,7 @@
 import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED, SIGNUP } from "./types";
 
 export const exec_login = (login, pass) => dispatch => {
-  fetch("/login", {
+  fetch("/api/login", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -30,7 +30,7 @@ export const exec_login = (login, pass) => dispatch => {
 };
 
 export const exec_signup = (login, pass) => dispatch => {
-  fetch("/signup", {
+  fetch("/api/signup", {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json"
@@ -59,7 +59,7 @@ export const exec_signup = (login, pass) => dispatch => {
 };
 
 export const exec_whoami = () => dispatch => {
-  fetch("/whoami").then(res =>
+  fetch("/api/whoami").then(res =>
     res.json().then(data =>
       dispatch({
         type: WHOAMI,
