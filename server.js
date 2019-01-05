@@ -50,7 +50,8 @@ const Message = sequelize.define("message", {
 });
 
 const Chat_rooms = sequelize.define("chat_rooms", {
-  name: Sequelize.STRING
+  name: Sequelize.STRING,
+  owner_name: Sequelize.STRING
 });
 
 const User = sequelize.define("users", {
@@ -169,16 +170,20 @@ app.get("/rooms", async (req, res) => {
 app.post("/rooms", async (req, res) => {
   let room_name = req.body.name;
   let creatorID = req.body.creator;
+  let creatorName = req.body.creatorName;
   if (room_name) {
     let cr = await Chat_rooms.create({
       name: room_name,
-      OwnerId: creatorID
+      OwnerId: creatorID,
+      owner_name: creatorName
     });
     res.status(201);
     res.end(JSON.stringify(cr));
   } else {
     let cr = await Chat_rooms.create({
-      name: `Unnamed Room`
+      name: `Unnamed Room`,
+      owner_name: creatorName,
+      OwnerId: creatorID
     });
     res.status(201);
     res.end(JSON.stringify(cr));

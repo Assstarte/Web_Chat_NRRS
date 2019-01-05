@@ -30,7 +30,11 @@ class RoomScreen extends Component {
   render() {
     return (
       <React.Fragment>
-        <FixedDashboard user_name={this.props.user_name} />
+        <FixedDashboard
+          user_name={this.props.user_name}
+          functionToExec={this.createNewRoom.bind(this, this.props.user_name)}
+          //!!! TODO: REPLACE The roomName param with actual input from user
+        />
         <div className="container demo">
           <h2
             style={{
@@ -47,7 +51,7 @@ class RoomScreen extends Component {
               <ChatRoom
                 name={room.name}
                 key={room.id}
-                owner={room.OwnerId}
+                owner={room.owner_name}
                 enterRoom={this.setCurrentRoom.bind(this, room.id)}
               />
             ))}
@@ -60,6 +64,25 @@ class RoomScreen extends Component {
   setCurrentRoom(room) {
     this.props.exec_set_current_room(room);
   }
+
+  createNewRoom(roomName) {
+    fetch("/rooms", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      method: "POST",
+      body: JSON.stringify({
+        name: roomName,
+        creator: this.props.user_id,
+        creatorName: this.props.user_name
+      })
+    })
+      .then(res => res.json().then(res => console.log(res)))
+      .catch(function(res) {
+        console.log(res);
+      });
+  }
 }
 
 const mapStateToProps = state => ({
@@ -69,7 +92,8 @@ const mapStateToProps = state => ({
   msgScreen: state.fetch.msgScreen,
   currentRoom: state.chat.currentRoom,
   loggedIn: state.login.loggedIn,
-  user_name: state.login.user_name
+  user_name: state.login.user_name,
+  user_id: state.login.user_id
 });
 
 export default connect(

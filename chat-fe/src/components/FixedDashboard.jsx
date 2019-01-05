@@ -19,7 +19,16 @@ const FixedDashboard = ({ user_name, screenType, functionToExec }) => (
           Room Screen
         </button>
       ) : (
-        <button className="pulse btn-login">Dashboard</button>
+        <button
+          onClick={
+            typeof functionToExec === "function"
+              ? e => functionToExec(e)
+              : e => console.log("ERROR DURING EVENT HANDLING PASSAGE")
+          }
+          className="pulse btn-login"
+        >
+          Create New Room
+        </button>
       )}
       <button className="raise btn-signup">Logout</button>
     </div>
