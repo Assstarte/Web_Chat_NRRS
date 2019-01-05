@@ -6,7 +6,7 @@ const express = require("express");
 const app = express();
 
 const bodyParser = require("body-parser");
-const cors = require("cors");
+//const cors = require("cors");
 const cookieSession = require("cookie-session");
 
 app.set("trust proxy", 1); // trust first proxy
@@ -20,7 +20,7 @@ app.use(
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
-app.use(cors());
+//app.use(cors());
 
 //==================
 //MYSQL
@@ -28,7 +28,7 @@ app.use(cors());
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
-  "chat_v2",
+  "chat_v3",
   process.env.DB_USER,
   process.env.DB_PASS,
   {
@@ -40,7 +40,9 @@ const sequelize = new Sequelize(
       min: 0,
       acquire: 30000,
       idle: 10000
-    }
+    },
+    //Disable Logging
+    logging: false
   }
 );
 
