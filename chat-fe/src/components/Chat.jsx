@@ -20,7 +20,11 @@ class Chat extends Component {
   render() {
     return (
       <React.Fragment>
-        <FixedDashboard user_name={this.props.user_name} />
+        <FixedDashboard
+          user_name={this.props.user_name}
+          screenType="chat"
+          functionToExec={this.redirectToRoomScreen.bind(this)}
+        />
         <div id="chat">
           {this.props.messages.map(msg => (
             <ChatMessage key={msg.id} data={msg} />
@@ -57,6 +61,10 @@ class Chat extends Component {
 
   loopedCheck(roomId) {
     setInterval(this.props.exec_fetch_messages.bind(this, roomId), 1000);
+  }
+
+  redirectToRoomScreen() {
+    this.props.history.push("/rooms");
   }
 }
 
