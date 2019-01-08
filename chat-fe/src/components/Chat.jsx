@@ -14,6 +14,7 @@ import FixedDashboard from "./FixedDashboard";
 class Chat extends Component {
   constructor(props) {
     super(props);
+    if (!this.props.currentRoom) this.props.history.push("/rooms");
     this.currentRoom = this.props.currentRoom;
     this.intervalID = null;
   }

@@ -144,9 +144,7 @@ app.get("/message", async (req, res) => {
 //=============GET MESSAGES FROM SPECIFIED CHAT ROOM============
 
 app.get("/message/:chatRoomId?", async (req, res) => {
-  console.log(req.params.chatRoomId + "<- ROOMID");
   let room = await Chat_rooms.findById(req.params.chatRoomId);
-  console.log("CURRENT ROOM -> " + room);
   let messages = await room.getMessages();
   res.status(201);
   res.end(JSON.stringify(messages));
@@ -260,6 +258,16 @@ app.get("/whoami", async (req, res) => {
       : JSON.stringify({ session: "DENIED" })
   );
   res.status(200);
+});
+
+app.get("/logout", (req, res) => {
+  if (req.session) {
+    // delete session object
+    console.log("======SESSION EXISTS. ERASING!==========");
+    req.session = null;
+    res.status(200);
+    res.end(JSON.stringify({ session: "ERASED" }));
+  }
 });
 
 app.listen("3030", () => {

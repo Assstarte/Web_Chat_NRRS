@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import "../css/chatRoom.css";
+import { connect } from "react-redux";
+import { exec_logout } from "../actions/login";
 
-const FixedDashboard = ({ user_name, screenType, functionToExec }) => (
+const FixedDashboard = props => (
   <React.Fragment>
     <div id="fixed-head">
       <h2 style={{ display: `inlineBlock`, color: `#fff` }}>
-        $_ΣZIC > Welcome, {user_name}
+        $_ΣZIC > Welcome, {props.user_name}
       </h2>
-      {screenType === "chat" ? (
+      {props.screenType === "chat" ? (
         <button
           onClick={
-            typeof functionToExec === "function"
-              ? e => functionToExec(e)
+            typeof props.functionToExec === "function"
+              ? e => props.functionToExec(e)
               : e => console.log("ERROR DURING EVENT HANDLING PASSAGE")
           }
           className="pulse btn-login"
@@ -21,8 +23,8 @@ const FixedDashboard = ({ user_name, screenType, functionToExec }) => (
       ) : (
         <button
           onClick={
-            typeof functionToExec === "function"
-              ? e => functionToExec(e)
+            typeof props.functionToExec === "function"
+              ? e => props.functionToExec(e)
               : e => console.log("ERROR DURING EVENT HANDLING PASSAGE")
           }
           className="pulse btn-login"
@@ -30,10 +32,15 @@ const FixedDashboard = ({ user_name, screenType, functionToExec }) => (
           Create New Room
         </button>
       )}
-      <button className="raise btn-signup">Logout</button>
+      <button onClick={e => props.exec_logout()} className="raise btn-signup">
+        Logout
+      </button>
     </div>
     <hr />
   </React.Fragment>
 );
 
-export default FixedDashboard;
+export default connect(
+  null,
+  { exec_logout }
+)(FixedDashboard);

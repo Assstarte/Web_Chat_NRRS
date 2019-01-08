@@ -1,4 +1,11 @@
-import { LOGIN, AUTH, WHOAMI, ERROR_OCCURRED, SIGNUP } from "../actions/types";
+import {
+  LOGIN,
+  AUTH,
+  WHOAMI,
+  ERROR_OCCURRED,
+  SIGNUP,
+  LOGOUT
+} from "../actions/types";
 
 const initialState = {
   loggedIn: false,
@@ -64,6 +71,16 @@ export default function(state = initialState, action) {
           user_id: null
         };
       }
+
+    case LOGOUT:
+      console.log("===========LOGOUT WORKS!!!=========");
+      return {
+        ...state,
+        loggedIn: false,
+        user_id: null,
+        user_name: null,
+        errorOccurred: false
+      };
 
     default:
       return state;
