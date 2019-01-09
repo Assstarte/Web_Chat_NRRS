@@ -74,6 +74,70 @@ Chat_rooms.belongsTo(User, { as: "Owner" });
 
 sequelize.sync();
 
+//=========GraphQL=========
+const express_graphql = require("express-graphql");
+const { buildSchema } = require("graphql");
+
+var schema = buildSchema(`
+    type Query {
+        getMessage(id: Int!): Message
+        getMessagesFromChatRoom(id: Int!): [Message]
+        getChatRooms: [Room]
+    }
+
+    type Message {
+        id: Int
+        nick: String
+        message:  String
+        createdAt:   String
+        updatedAt:  String
+        chatRoomId: Int
+        userId: Int
+        MsgOwnerId: Int
+    }
+    type Room {
+        id: Int
+        name:  String
+        createdAt:   String
+        updatedAt: String
+        OwnerId: Int
+        owner_name: String
+    }
+`);
+
+//========Resolvers========
+async function getMessage({ id }) {
+  return await Message.findById(id);
+}
+
+async function getMessagesFromChatRoom({ id }) {
+  let room = await Chat_rooms.findById(id);
+  let messages = await room.getMessages();
+  return messages;
+}
+
+async function getChatRooms({ id }) {
+  return await Chat_rooms.findAll({});
+}
+//=========================
+
+let rootGraph = {
+  getMessage,
+  getMessagesFromChatRoom,
+  getChatRooms
+};
+
+app.use(
+  "/api",
+  express_graphql({
+    schema: schema,
+    rootValue: rootGraph,
+    graphiql: true
+  })
+);
+
+//=========================
+
 //===========================
 //Controllers (REST Endpoints)
 //===========================
