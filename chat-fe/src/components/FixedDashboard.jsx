@@ -7,7 +7,9 @@ const FixedDashboard = props => (
   <React.Fragment>
     <div id="fixed-head">
       <h2 style={{ display: `inlineBlock`, color: `#fff` }}>
-        $_ΣZIC > Welcome, {props.user_name}
+        {props.user_name !== null
+          ? `$_ΣZIC > Welcome${props.user_name}`
+          : `$_ΣZIC > NOT LOGGED IN`}
       </h2>
       {props.screenType === "chat" ? (
         <button
