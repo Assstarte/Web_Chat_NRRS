@@ -121,3 +121,28 @@ body {
   top: 0;
   right: 100px;
 }
+
+/* POPUPS */
+
+.popup {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: content-box;
+  width: 300px;
+  height: 230px;
+  text-align: center;
+}
+
+.popup-icon {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+
+.popup-button {
+  display: inline-block !important;
+  margin: 0 auto !important;
+}

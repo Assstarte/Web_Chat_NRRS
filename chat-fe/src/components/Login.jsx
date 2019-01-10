@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import "../css/buttons.css";
 import "../css/login.css";
 import { exec_login } from "../actions/login";
+import {
+  exec_show_popup,
+  exec_hide_popup,
+  exec_set_popup_btn_action
+} from "../actions/popups";
+import Popup from "./Popup";
 
 import { connect } from "react-redux";
 class Login extends Component {
@@ -12,10 +18,19 @@ class Login extends Component {
     this.execute_login = this.execute_login.bind(this);
   }
 
-  componentDidUpdate() {
-    this.props.loggedIn
-      ? (window.location.href = "/rooms")
-      : console.log("Oops! Invalid Credentials");
+  checkIfLoggedIn() {
+    console.log(`LOGGEDIN = ${this.props.loggedIn}`);
+    if (this.props.loggedIn) {
+      this.props.exec_set_popup_btn_action(() =>
+        this.props.history.push("/rooms")
+      );
+      this.props.exec_show_popup(`DEFAULT`, `LOGGED IN SUCCESSFULLY!`);
+    } else this.props.exec_show_popup(`DEFAULT`, `NOT LOGGED IN!`);
+  }
+
+  //Prevent re-rendering when popup button is clicked
+  shouldComponentUpdate(popup_shown) {
+    return false;
   }
 
   render() {
@@ -56,27 +71,37 @@ class Login extends Component {
         </a>
         <div className="underlay-photo" />
         <div className="underlay-black" />
+        <Popup
+          type={this.props.popup_type}
+          message={this.props.popup_message}
+          ref={this.popup}
+          shown={this.props.popup_shown}
+        />
       </div>
     );
   }
 
-  execute_login(e) {
+  async execute_login(e) {
     e.preventDefault();
     console.log("handling");
-    this.props.exec_login(
+    await this.props.exec_login(
       this.inputLoginRef.current.value,
       this.inputPassRef.current.value
     );
+    this.checkIfLoggedIn();
   }
 }
 
 const mapStateToProps = state => ({
   loggedIn: state.login.loggedIn,
   errorOccurred: state.login.errorOccurred,
-  user_id: state.login.user_id
+  user_id: state.login.user_id,
+  popup_shown: state.popup.popup_shown,
+  popup_type: state.popup.popup_type,
+  popup_message: state.popup.popup_message
 });
 
 export default connect(
   mapStateToProps,
-  { exec_login }
+  { exec_login, exec_show_popup, exec_hide_popup, exec_set_popup_btn_action }
 )(Login);

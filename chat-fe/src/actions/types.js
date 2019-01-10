@@ -9,5 +9,8 @@ export const CREATE_CHATROOM = "CREATE_CHATROOM";
 export const WHOAMI = "WHOAMI";
 export const ERROR_OCCURRED = "ERROR_OCCURRED";
 export const FLUSH_CURRENT_ROOM = "FLUSH_CURRENT_ROOM";
-
 export const SET_CURRENT_ROOM = "SET_CURRENT_ROOM";
+
+export const SHOW_POPUP = "SHOW_POPUP";
+export const HIDE_POPUP = "HIDE_POPUP";
+export const SET_POPUP_BTN_ACTION = "SET_POPUP_BTN_ACTION";

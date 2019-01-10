@@ -8,7 +8,7 @@ const FixedDashboard = props => (
     <div id="fixed-head">
       <h2 style={{ display: `inlineBlock`, color: `#fff` }}>
         {props.user_name !== null
-          ? `$_ΣZIC > Welcome${props.user_name}`
+          ? `$_ΣZIC > Welcome, ${props.user_name}`
           : `$_ΣZIC > NOT LOGGED IN`}
       </h2>
       {props.screenType === "chat" ? (
