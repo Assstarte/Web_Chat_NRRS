@@ -50,6 +50,10 @@ export const exec_login = (login, pass) => dispatch => {
 };
 
 export const exec_signup = (login, pass) => dispatch => {
+  dispatch({
+    type: LOGGING_IN,
+    payload: { in_process: true }
+  });
   fetch("/signup", {
     headers: {
       Accept: "application/json",
@@ -63,16 +67,24 @@ export const exec_signup = (login, pass) => dispatch => {
   }).then(res =>
     res
       .json()
-      .then(data =>
+      .then(data => {
         dispatch({
           type: SIGNUP,
           payload: data
-        })
-      )
+        });
+        dispatch({
+          type: LOGGING_IN,
+          payload: { in_process: false }
+        });
+      })
       .catch(res => {
         dispatch({
           type: ERROR_OCCURRED,
           payload: res
+        });
+        dispatch({
+          type: LOGGING_IN,
+          payload: { in_process: false }
         });
       })
   );
