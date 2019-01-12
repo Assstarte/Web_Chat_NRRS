@@ -4,7 +4,12 @@ import "../css/chatRoom.css";
 const ChatRoom = ({ name, owner, enterRoom }) => (
   <div className="chat-room">
     <span className="room-name">{name}</span>
-    <button className="raise enter-room" onClick={enterRoom}>
+    <span>Owner: {owner}</span>
+    <button
+      className="raise enter-room"
+      style={{ margin: `0 auto` }}
+      onClick={enterRoom}
+    >
       <svg
         aria-hidden="true"
         data-prefix="fas"
@@ -20,7 +25,6 @@ const ChatRoom = ({ name, owner, enterRoom }) => (
         />
       </svg>
     </button>
-    <span>Owner: {owner}</span>
   </div>
 );
 

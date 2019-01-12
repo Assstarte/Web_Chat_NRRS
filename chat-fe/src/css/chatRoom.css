@@ -1,8 +1,8 @@
 .chat-room {
-  border: 3px solid red;
+  border: 3px solid #fff;
   display: flex;
   align-content: center;
-  background-color: #426ef4;
+  background-color: #070707;
   color: #fff;
   font-size: 18px;
   font-weight: 700;
