@@ -84,25 +84,35 @@ app.post("/message/room/:room_id?", async (req, res) => {
   console.log("Request Received");
   let { room_id } = req.params;
   if (!room_id) {
-    let msg = await Message.create({
-      nick: req.body.user_name,
-      message: req.body.text,
-      chatRoomId: req.body.chatRoomId,
-      userId: req.body.userId,
-      ownerId: req.body.userId
-    });
-    res.status(201);
-    res.end(JSON.stringify(msg));
+    if (req.body.user_name) {
+      let msg = await Message.create({
+        nick: req.body.user_name,
+        message: req.body.text,
+        chatRoomId: req.body.chatRoomId,
+        userId: req.body.userId,
+        ownerId: req.body.userId
+      });
+      res.status(201);
+      res.end(JSON.stringify(msg));
+    } else {
+      res.status(400);
+      res.end(JSON.stringify({ error: "You are not logged in" }));
+    }
   } else {
-    let msg = await Message.create({
-      nick: req.body.user_name,
-      message: req.body.text,
-      chatRoomId: room_id,
-      userId: req.body.userId,
-      MsgOwnerId: req.body.userId
-    });
-    res.status(201);
-    res.end(JSON.stringify(msg));
+    if (req.body.user_name) {
+      let msg = await Message.create({
+        nick: req.body.user_name,
+        message: req.body.text,
+        chatRoomId: room_id,
+        userId: req.body.userId,
+        MsgOwnerId: req.body.userId
+      });
+      res.status(201);
+      res.end(JSON.stringify(msg));
+    } else {
+      res.status(400);
+      res.end(JSON.stringify({ error: "You are not logged in" }));
+    }
   }
 });
 
