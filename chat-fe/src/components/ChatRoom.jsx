@@ -5,11 +5,7 @@ const ChatRoom = ({ name, owner, enterRoom }) => (
   <div className="chat-room">
     <span className="room-name">{name}</span>
     <span>Owner: {owner}</span>
-    <button
-      className="raise enter-room"
-      style={{ margin: `0 auto` }}
-      onClick={enterRoom}
-    >
+    <button className="raise enter-room" onClick={enterRoom}>
       <svg
         aria-hidden="true"
         data-prefix="fas"

@@ -11,9 +11,6 @@
   width: 90vw;
 }
 
-.chat-message {
-}
-
 textarea {
   display: inline-block;
   /* position: absolute;
@@ -134,6 +131,7 @@ body {
   width: 300px;
   height: 230px;
   text-align: center;
+  z-index: 999;
 }
 
 .popup-icon {

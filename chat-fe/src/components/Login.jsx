@@ -16,24 +16,37 @@ class Login extends Component {
     this.inputLoginRef = React.createRef();
     this.inputPassRef = React.createRef();
     this.execute_login = this.execute_login.bind(this);
+    this.is_logging = props.is_logging;
+    this.prepare_popup = false;
   }
 
   checkIfLoggedIn() {
-    console.log(`LOGGEDIN = ${this.props.loggedIn}`);
+    //console.log(`LOGGEDIN = ${this.props.loggedIn}`);
     if (this.props.loggedIn) {
       this.props.exec_set_popup_btn_action(() =>
         this.props.history.push("/rooms")
       );
       this.props.exec_show_popup(`SUCCESS`, `LOGGED IN SUCCESSFULLY!`);
-    } else this.props.exec_show_popup(`ERROR`, `NOT LOGGED IN!`);
+    } else this.props.exec_show_popup(`ERROR`, `Oops! Invalid Credentials ;(`);
   }
 
   //Prevent re-rendering when popup button is clicked
-  shouldComponentUpdate(popup_shown) {
-    return false;
+  // shouldComponentUpdate(popup_shown) {
+  //   return false;
+  // }
+
+  componentDidUpdate() {
+    //console.log("IS LOGGING - " + this.props.is_logging);
+
+    if (!this.props.is_logging && this.prepare_popup) {
+      //console.log(`IF TRIGGERED?`);
+      this.checkIfLoggedIn();
+      this.prepare_popup = false;
+    }
   }
 
   render() {
+    this.is_logging = this.props.is_logging ? true : false;
     return (
       <div>
         <form className="login-form" id="auth" method="post">
@@ -81,19 +94,22 @@ class Login extends Component {
     );
   }
 
-  async execute_login(e) {
+  execute_login(e) {
     e.preventDefault();
-    console.log("handling");
-    await this.props.exec_login(
+    //console.log("handling");
+    this.props.exec_login(
       this.inputLoginRef.current.value,
       this.inputPassRef.current.value
     );
-    this.checkIfLoggedIn();
+    this.prepare_popup = true;
+    //this.checkIfLoggedIn();
+    //this.checkIfLoggedIn();
   }
 }
 
 const mapStateToProps = state => ({
   loggedIn: state.login.loggedIn,
+  is_logging: state.login.is_logging,
   errorOccurred: state.login.errorOccurred,
   user_id: state.login.user_id,
   popup_shown: state.popup.popup_shown,

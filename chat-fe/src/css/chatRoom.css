@@ -1,12 +1,13 @@
 .chat-room {
   border: 3px solid #fff;
   display: flex;
-  align-content: center;
+  justify-content: space-between;
   background-color: #070707;
   color: #fff;
   font-size: 18px;
   font-weight: 700;
   line-height: 50px;
+  padding: 0 50px;
 }
 
 .room-name {

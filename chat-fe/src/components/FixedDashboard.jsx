@@ -9,6 +9,9 @@ import {
 } from "../actions/popups";
 import Popup from "./Popup";
 
+//NOTE: Made as functional component to demonstrate such possibility only
+//Obiously a better design solution would be creating a class for this component since it depends on its state
+
 const FixedDashboard = props => (
   <React.Fragment>
     <div id="fixed-head">

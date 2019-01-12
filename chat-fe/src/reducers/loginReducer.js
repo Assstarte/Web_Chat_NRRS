@@ -4,11 +4,13 @@ import {
   WHOAMI,
   ERROR_OCCURRED,
   SIGNUP,
-  LOGOUT
+  LOGOUT,
+  LOGGING_IN
 } from "../actions/types";
 
 const initialState = {
   loggedIn: false,
+  is_logging: false,
   errorOccurred: false,
   user_id: null,
   user_name: null
@@ -81,6 +83,17 @@ export default function(state = initialState, action) {
         user_name: null,
         errorOccurred: false
       };
+
+    case LOGGING_IN:
+      return action.payload.in_process
+        ? {
+            ...state,
+            is_logging: true
+          }
+        : {
+            ...state,
+            is_logging: false
+          };
 
     default:
       return state;

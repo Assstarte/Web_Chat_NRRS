@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import "../css/buttons.css";
 import "../css/login.css";
 import { exec_signup } from "../actions/login";
+import {
+  exec_show_popup,
+  exec_hide_popup,
+  exec_set_popup_btn_action
+} from "../actions/popups";
+import Popup from "./Popup";
 
 import { connect } from "react-redux";
 class Signup extends Component {

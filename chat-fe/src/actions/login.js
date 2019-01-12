@@ -1,6 +1,18 @@
-import { LOGIN, AUTH, LOGOUT, WHOAMI, ERROR_OCCURRED, SIGNUP } from "./types";
+import {
+  LOGIN,
+  LOGGING_IN,
+  AUTH,
+  LOGOUT,
+  WHOAMI,
+  ERROR_OCCURRED,
+  SIGNUP
+} from "./types";
 
 export const exec_login = (login, pass) => dispatch => {
+  dispatch({
+    type: LOGGING_IN,
+    payload: { in_process: true }
+  });
   fetch("/login", {
     headers: {
       Accept: "application/json",
@@ -14,16 +26,24 @@ export const exec_login = (login, pass) => dispatch => {
   }).then(res =>
     res
       .json()
-      .then(data =>
+      .then(data => {
         dispatch({
           type: LOGIN,
           payload: data
-        })
-      )
+        });
+        dispatch({
+          type: LOGGING_IN,
+          payload: { in_process: false }
+        });
+      })
       .catch(res => {
         dispatch({
           type: ERROR_OCCURRED,
           payload: res
+        });
+        dispatch({
+          type: LOGGING_IN,
+          payload: { in_process: false }
         });
       })
   );

@@ -1,6 +1,7 @@
 export const FETCH_MESSAGES = "FETCH_MESSAGES";
 export const FETCH_CHATROOMS = "FETCH_CHATROOMS";
 export const LOGIN = "LOGIN";
+export const LOGGING_IN = "LOGGING_IN";
 export const LOGOUT = "LOGOUT";
 export const SIGNUP = "SIGNUP";
 export const AUTH = "AUTH";
