@@ -24,8 +24,8 @@ class Login extends Component {
       this.props.exec_set_popup_btn_action(() =>
         this.props.history.push("/rooms")
       );
-      this.props.exec_show_popup(`DEFAULT`, `LOGGED IN SUCCESSFULLY!`);
-    } else this.props.exec_show_popup(`DEFAULT`, `NOT LOGGED IN!`);
+      this.props.exec_show_popup(`SUCCESS`, `LOGGED IN SUCCESSFULLY!`);
+    } else this.props.exec_show_popup(`ERROR`, `NOT LOGGED IN!`);
   }
 
   //Prevent re-rendering when popup button is clicked

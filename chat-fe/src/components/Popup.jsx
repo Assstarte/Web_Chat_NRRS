@@ -47,9 +47,10 @@ class Popup extends Component {
   }
 
   shapePopupObject(type, message, btn_action) {
+    let styleObj;
     switch (type) {
       case `DEFAULT`:
-        let styleObj = {
+        styleObj = {
           display: `inline-block`,
           backgroundColor: `#fff`,
           color: `#000`
@@ -62,9 +63,44 @@ class Popup extends Component {
           button1Text: `OK`,
           button1Action: e => {
             this.props.exec_hide_popup();
-            typeof btn_action === `function`
-              ? btn_action()
-              : console.log(`Not executed`);
+            if (typeof btn_action === `function`) btn_action();
+          }
+        };
+
+      case `ERROR`:
+        styleObj = {
+          display: `inline-block`,
+          backgroundColor: `#1c1b1b`,
+          color: `red`
+        };
+
+        return {
+          message,
+          styleObj,
+          icon: `popup_error`,
+          buttonsAmount: 1,
+          button1Text: `OK`,
+          button1Action: e => {
+            this.props.exec_hide_popup();
+          }
+        };
+
+      case `SUCCESS`:
+        styleObj = {
+          display: `inline-block`,
+          backgroundColor: `#fff`,
+          color: `#20f215`
+        };
+
+        return {
+          message,
+          styleObj,
+          icon: `popup_success`,
+          buttonsAmount: 1,
+          button1Text: `Nice!`,
+          button1Action: e => {
+            this.props.exec_hide_popup();
+            if (typeof btn_action === `function`) btn_action();
           }
         };
     }
