@@ -36,7 +36,7 @@ class RoomScreen extends Component {
       <React.Fragment>
         <FixedDashboard
           user_name={this.props.user_name}
-          functionToExec={this.createNewRoom.bind(this, this.props.user_name)}
+          functionToExec={this.redirectToRoomCreation.bind(this)}
           //!!! TODO: REPLACE The roomName param with actual input from user
         />
         <div className="container demo">
@@ -69,23 +69,27 @@ class RoomScreen extends Component {
     this.props.exec_set_current_room(room);
   }
 
-  createNewRoom(roomName) {
-    fetch("/rooms", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      method: "POST",
-      body: JSON.stringify({
-        name: roomName,
-        creator: this.props.user_id,
-        creatorName: this.props.user_name
-      })
-    })
-      .then(res => res.json().then(res => console.log(res)))
-      .catch(function(res) {
-        console.log(res);
-      });
+  // createNewRoom(roomName) {
+  //   fetch("/rooms", {
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       name: roomName,
+  //       creator: this.props.user_id,
+  //       creatorName: this.props.user_name
+  //     })
+  //   })
+  //     .then(res => res.json().then(res => console.log(res)))
+  //     .catch(function(res) {
+  //       console.log(res);
+  //     });
+  // }
+
+  redirectToRoomCreation() {
+    this.props.history.push("/createChatRoom");
   }
 }
 

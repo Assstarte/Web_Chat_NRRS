@@ -19,6 +19,7 @@ import createHistory from "history/createBrowserHistory";
 import store from "./store";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import CreateChatRoom from "./components/CreateChatRoom";
 
 class App extends Component {
   render() {
@@ -40,6 +41,7 @@ class App extends Component {
                 <Route path="/rooms" component={RoomScreen} />
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
+                <Route path="/createChatRoom" component={CreateChatRoom} />
               </Switch>
             </div>
           </Router>

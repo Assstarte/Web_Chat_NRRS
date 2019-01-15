@@ -1,4 +1,8 @@
-import { SET_CURRENT_ROOM, FLUSH_CURRENT_ROOM } from "../actions/types";
+import {
+  SET_CURRENT_ROOM,
+  FLUSH_CURRENT_ROOM,
+  CREATE_CHATROOM
+} from "../actions/types";
 
 const initialState = {
   currentRoom: null,
@@ -19,6 +23,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentRoom: null
+      };
+
+    case CREATE_CHATROOM:
+      return {
+        ...state,
+        currentRoom: action.payload.id
       };
 
     default:
