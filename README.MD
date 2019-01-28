@@ -16,3 +16,10 @@ _FRONT_
 2) Redux for global state management
 3) Thunk (Middleware for Redux which makes functions become dispatchable to storage)
 4) GraphQL show-case (please check GraphQL branch and its diffs for reference)
+
+_DEPLOYMENT_
+1) Nginx as a reverse-proxy & serving static files
+2) PM2 for node process runtime
+3) creact-react-app prod build
+
+You may check the deployment version at https://ezic.io
